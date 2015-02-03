@@ -17,13 +17,16 @@ void setup()
   Serial.begin(9600);  //Start the serial connection with the copmuter
                        //to view the result open the serial monitor                       
                        //last button beneath the file bar (looks like a box with an antenae)
+pinMode(led_red, OUTPUT);
+pinMode(led_blue, OUTPUT);
+
 }
  
 void loop()                     // run over and over again
 {
   
  float temperature = getVoltage(temperaturePin);  //getting the voltage reading from the temperature sensor
- temperature = (((temperature - .5) * -100)* 1.8) + 32;  
+ temperature = (((temperature - .5) * 100)* 1.8) + 32;  
  //converting from 10 mv per degree wit 500 mV offset
                                                   //to degrees ((volatge - 500mV) times 100)
   Serial.println(temperature);                     //printing the result
@@ -32,6 +35,7 @@ void loop()                     // run over and over again
   {
     digitalWrite(led_red, LOW); // I am turning this one on
     digitalWrite(led_blue, HIGH); 
+    delay(200);
   }
   
   if (temperature > 80)
